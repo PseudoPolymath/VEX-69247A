@@ -37,10 +37,10 @@ class VirtualController {
         ry = cont->get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
 
         // Digital records
-        l1 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_R1);
-        l2 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_R2);
-        r1 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_L1);
-        r2 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_L2);
+        l1 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_L1);
+        l2 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_L2);
+        r1 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_R1);
+        r2 = cont->get_digital(pros::E_CONTROLLER_DIGITAL_R2);
         a = cont->get_digital(pros::E_CONTROLLER_DIGITAL_A);
         b = cont->get_digital(pros::E_CONTROLLER_DIGITAL_B);
         x = cont->get_digital(pros::E_CONTROLLER_DIGITAL_X);

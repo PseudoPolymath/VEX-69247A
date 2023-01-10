@@ -13,10 +13,10 @@ void roller_op(pros::Controller* drive_con) {
 	}
 }
 
-void roller_auton(VirtualController* vc) {
-    if (vc -> r1) {
+void roller_auton(VirtualController* virtual_con) {
+    if (virtual_con -> r1) {
 		roller = 75;
-	} else if (vc -> r2) {
+	} else if (virtual_con -> r2) {
 		roller = -75;
 	} else {
 		roller = 0;

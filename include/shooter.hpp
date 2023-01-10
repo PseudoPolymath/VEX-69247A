@@ -47,12 +47,12 @@ void shoot_op(pros::Controller* drive_con) {
     }
 }
 
-void shoot_auton(VirtualController* vc) {
+void shoot_auton(VirtualController* virtual_con) {
     bool shooterSwitch;
 	bool aPrevious;
 	bool aCurrent;
 
-    if (vc->b && shoot_count == 0) {
+    if (virtual_con->b && shoot_count == 0) {
 			shooter.set_value(true);
 			pros::delay(70);
 			shooter.set_value(false);
@@ -68,7 +68,7 @@ void shoot_auton(VirtualController* vc) {
 			std::cout << "RESET" << std::endl;
 	}
 		
-	aCurrent = vc->a;
+	aCurrent = virtual_con->a;
 
 	//shooter toggle
 	if (aCurrent && aCurrent != aPrevious) {

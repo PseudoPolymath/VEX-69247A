@@ -38,22 +38,22 @@ void autonomous() {
 	roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 	// Replay
-	VirtualController vc(&drive_con, true);
+	VirtualController virtual_con(&drive_con, true);
 	std::chrono::high_resolution_clock clock;
 
 	while(true) {
 		// Get recorded frame
-		vc.read_from_file();
+		virtual_con.read_from_file();
 
 		auto t1 = clock.now(); // Start record
-		drive_auton(&vc);
+		drive_auton(&virtual_con);
 	
-		roller_auton(&vc);
+		roller_auton(&virtual_con);
 
 		// SUCC Control
-		succ_auton(&vc);
+		succ_auton(&virtual_con);
 
-		shoot_auton(&vc);
+		shoot_auton(&virtual_con);
 
 		if (drive_con.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && end_game_available) {
 			std::cout << "End game used" << std::endl;
@@ -74,7 +74,7 @@ void opcontrol()
 	roller.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 	// Replay
-	VirtualController vc(&drive_con, false);
+	VirtualController virtual_con(&drive_con, false);
 	std::chrono::high_resolution_clock clock;
 
 	while(true) {
@@ -95,8 +95,8 @@ void opcontrol()
 		}
 
 		// Replay code
-		vc.record_frame();
-		vc.write_to_file();
+		virtual_con.record_frame();
+		virtual_con.write_to_file();
 
 		// Record time for replay adjustment
 		auto t2 = clock.now();
