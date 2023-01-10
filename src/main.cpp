@@ -16,7 +16,7 @@ using namespace std::chrono_literals;
 // MOTOR DEFINITIONS
 pros::Controller drive_con(pros::E_CONTROLLER_MASTER);
 
-bool end_game_availible;
+bool end_game_available;
 
 void set_tank(int l, int r) {
 	left_back = l;
@@ -28,7 +28,7 @@ void set_tank(int l, int r) {
 void initialize() {
 	pros::Task task{[=] {
 		pros::delay(100*1000);
-		end_game_availible = true;
+		end_game_available = true;
 		std::cout << "End Game avalible" << std::endl;
 	}};
 }
@@ -55,9 +55,9 @@ void autonomous() {
 
 		shoot_auton(&vc);
 
-		if (drive_con.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && end_game_availible) {
+		if (drive_con.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && end_game_available) {
 			std::cout << "End game used" << std::endl;
-			end_game_availible = false;
+			end_game_available = false;
 		}
 
 		// Record time for replay adjustment
@@ -89,9 +89,9 @@ void opcontrol()
 		shoot_op(&drive_con);
 
 
-		if (drive_con.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && end_game_availible) {
+		if (drive_con.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && end_game_available) {
 			std::cout << "End game used" << std::endl;
-			end_game_availible = false;
+			end_game_available = false;
 		}
 
 		// Replay code
