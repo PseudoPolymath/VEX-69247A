@@ -17,6 +17,7 @@ using namespace std::chrono_literals;
 pros::Controller drive_con(pros::E_CONTROLLER_MASTER);
 
 bool end_game_available;
+std::chrono::milliseconds op_adjust;
 
 void set_tank(int l, int r) {
 	left_back = l;
@@ -61,10 +62,10 @@ void autonomous() {
 		}
 
 		// Record time for replay adjustment
-		//auto t2 = clock.now();
-		//std::chrono::milliseconds ms_adjust = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-
-		pros::delay(20);
+		auto t2 = clock.now();
+		std::chrono::milliseconds ms_adjust = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
+		//auton_adjust = ms_adjust;
+		pros::delay(20 + (op_adjust - ms_adjust).count());
 	}	
 }
 
@@ -99,10 +100,9 @@ void opcontrol()
 		virtual_con.write_to_file();
 
 		// Record time for replay adjustment
-		auto t2 = clock.now();
-		//double ms_adjust = std::chrono::milliseconds(t2 - t1).count();
-		//std::cout << "Op control took " << ms_adjust << " ms" << std::endl;
-
+		std::chrono::milliseconds ms_adjust = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
+		std::cout << "Op control took " << ms_adjust.count() << " ms" << std::endl;
+		op_adjust = ms_adjust;
 		pros::delay(20);
 	}	
 }
