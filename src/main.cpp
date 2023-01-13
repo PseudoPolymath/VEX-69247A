@@ -18,6 +18,7 @@ pros::Controller drive_con(pros::E_CONTROLLER_MASTER);
 
 bool end_game_available;
 std::chrono::milliseconds op_adjust;
+std::chrono::milliseconds auton_adjust;
 
 void set_tank(int l, int r) {
 	left_back = l;
@@ -64,7 +65,8 @@ void autonomous() {
 		// Record time for replay adjustment
 		auto t2 = clock.now();
 		std::chrono::milliseconds ms_adjust = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-		//auton_adjust = ms_adjust;
+		std::cout << "Auton control took " << ms_adjust.count() << " ms" << std::endl;
+		auton_adjust = ms_adjust;
 		pros::delay(20 + (op_adjust - ms_adjust).count());
 	}	
 }
@@ -77,7 +79,7 @@ void opcontrol()
 	// Replay
 	VirtualController virtual_con(&drive_con, false);
 	std::chrono::high_resolution_clock clock;
-	
+
 	while(true) {
 		auto t1 = clock.now(); // Start record
 		drive_op(&drive_con);
