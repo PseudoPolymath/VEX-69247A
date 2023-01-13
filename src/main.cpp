@@ -77,7 +77,7 @@ void opcontrol()
 	// Replay
 	VirtualController virtual_con(&drive_con, false);
 	std::chrono::high_resolution_clock clock;
-
+	
 	while(true) {
 		auto t1 = clock.now(); // Start record
 		drive_op(&drive_con);
@@ -100,6 +100,7 @@ void opcontrol()
 		virtual_con.write_to_file();
 
 		// Record time for replay adjustment
+		auto t2 = clock.now();
 		std::chrono::milliseconds ms_adjust = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 		std::cout << "Op control took " << ms_adjust.count() << " ms" << std::endl;
 		op_adjust = ms_adjust;
